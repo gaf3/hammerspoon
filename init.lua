@@ -50,49 +50,49 @@ function change(horiz, vert)
     end
 
     found.frame.x = found.max.x + (found.col * found.max.w / spaces[found.w])
-    found.frame.y = found.max.y + (found.row * found.max.h / spaces[found.h])  
+    found.frame.y = found.max.y + (found.row * found.max.h / spaces[found.h])
 
     found.frame.w = found.max.w * sizes[found.w]
     found.frame.h = found.max.h * sizes[found.h]
 
-    found.win:setFrame(found.frame)
+    found.win:setFrame(found.frame, 0)
 
 end
 
-hs.hotkey.bind({"cmd", "alt"}, "Left", function()                                                              
+hs.hotkey.bind({"ctrl", "alt"}, "Left", function()
     change(-1, 0)
 end)
-  
-hs.hotkey.bind({"cmd", "alt"}, "Right", function()                                                              
+
+hs.hotkey.bind({"ctrl", "alt"}, "Right", function()
     change(1, 0)
 end)
 
-hs.hotkey.bind({"cmd", "alt"}, "Up", function()                                                              
+hs.hotkey.bind({"ctrl", "alt"}, "Up", function()
     change(0, -1)
 end)
-  
-hs.hotkey.bind({"cmd", "alt"}, "Down", function()                                                              
+
+hs.hotkey.bind({"ctrl", "alt"}, "Down", function()
     change(0, 1)
 end)
 
-hs.hotkey.bind({"alt", "ctrl"}, "Left", function()
+hs.hotkey.bind({"alt", "cmd"}, "Left", function()
     local app = hs.window.focusedWindow()
-    app:moveOneScreenWest(app:screen())
+    app:moveOneScreenWest(app:screen(), true, 0)
 end)
 
-hs.hotkey.bind({"alt", "ctrl"}, "Right", function()
+hs.hotkey.bind({"alt", "cmd"}, "Right", function()
     local app = hs.window.focusedWindow()
-    app:moveOneScreenEast(app:screen())
+    app:moveOneScreenEast(app:screen(), true, 0)
 end)
 
-hs.hotkey.bind({"alt", "ctrl"}, "Up", function()
+hs.hotkey.bind({"alt", "cmd"}, "Up", function()
     local app = hs.window.focusedWindow()
-    app:moveOneScreenNorth(app:screen())
+    app:moveOneScreenNorth(app:screen(), true, 0)
 end)
 
-hs.hotkey.bind({"alt", "ctrl"}, "Down", function()
+hs.hotkey.bind({"alt", "cmd"}, "Down", function()
     local app = hs.window.focusedWindow()
-    app:moveOneScreenDown(app:screen())
+    app:moveOneScreenSouth(app:screen(), true, 0)
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "R", function()
