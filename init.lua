@@ -85,6 +85,15 @@ hs.hotkey.bind({"alt", "ctrl"}, "Right", function()
     app:moveOneScreenEast(app:screen())
 end)
 
+hs.hotkey.bind({"alt", "ctrl"}, "Up", function()
+    local app = hs.window.focusedWindow()
+    app:moveOneScreenNorth(app:screen())
+end)
+
+hs.hotkey.bind({"alt", "ctrl"}, "Down", function()
+    local app = hs.window.focusedWindow()
+    app:moveOneScreenDown(app:screen())
+end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "R", function()
     hs.reload()
