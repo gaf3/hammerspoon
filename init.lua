@@ -1,6 +1,9 @@
 sizes = {1/4, 1/3, 1/2, 2/3, 3/4, 1}
 spaces = {4, 3, 2, 3, 4, 1}
 spots = {4, 3, 2, 2, 2, 1}
+gap = 20
+
+logger = hs.logger.new("screen", 5)
 
 function find()
 
@@ -15,13 +18,23 @@ function find()
         if not found.w and found.frame.w <= sizes[size] * found.max.w then
             found.w = size
         end
-        if not found.h and found.frame.h <= sizes[size] * found.max.h then
+        if not found.h and found.frame.h <= sizes[size] * (found.max.h - gap) then
             found.h = size
         end
     end
 
+    if found.h == nil then
+        found.h = #sizes
+    end
+
+    if found.w== nil then
+        found.w = #sizes
+    end
+
+    logger.d(found.h)
+
     found.col = math.max(0, math.min(spots[found.w] - 1, math.floor((found.frame.x + 1 - found.max.x) / (found.max.w / spaces[found.w]))))
-    found.row = math.max(0, math.min(spots[found.h] - 1, math.floor((found.frame.y + 1 - found.max.y) / (found.max.h / spaces[found.h]))))
+    found.row = math.max(0, math.min(spots[found.h] - 1, math.floor((found.frame.y + 1 - found.max.y) / ((found.max.h - gap) / spaces[found.h]))))
 
     return found
 
@@ -50,10 +63,10 @@ function change(horiz, vert)
     end
 
     found.frame.x = found.max.x + (found.col * found.max.w / spaces[found.w])
-    found.frame.y = found.max.y + (found.row * found.max.h / spaces[found.h])
+    found.frame.y = found.max.y + (found.row * (found.max.h - gap) / spaces[found.h])
 
     found.frame.w = found.max.w * sizes[found.w]
-    found.frame.h = found.max.h * sizes[found.h]
+    found.frame.h = (found.max.h - gap) * sizes[found.h]
 
     found.win:setFrame(found.frame, 0)
 
