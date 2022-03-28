@@ -108,6 +108,40 @@ hs.hotkey.bind({"alt", "cmd"}, "Down", function()
     app:moveOneScreenSouth(app:screen(), true, 0)
 end)
 
+clickAuto = false
+clickTimer = false
+clickDelay = 0.1
+
+function clickLeft()
+
+    hs.eventtap.leftClick(hs.mouse.absolutePosition())
+
+end
+
+function isClicking()
+
+    return clickAuto
+
+end
+
+function clickStart()
+
+    clickAuto = true
+    clickTimer = hs.timer.doWhile(isClicking, clickLeft, clickDelay)
+
+end
+
+function clickEnd()
+
+    clickAuto = false
+    clickTimer:stop()
+
+end
+
+hs.hotkey.bind({"ctrl", "alt"}, "a", clickStart)
+
+hs.hotkey.bind({"ctrl", "alt"}, "d", clickEnd)
+
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "R", function()
     hs.reload()
 end)
